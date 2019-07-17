@@ -8,13 +8,13 @@ import './App.scss';
 function App() {
   return (
     <div className="App">
-        <Router>
-          <Route path="/signin" component={SignIn}/>
-          <Route path="/signup" component={SignUp}/>
-          <Route path="/forgotpassword" component={ForgotPassword}/>
-          <Route path="/dashboard" component={Dashboard}/>
+        <Switch>
+          <Route path="/dashboard/signin" component={SignIn}/>
+          <Route path="/dashboard/signup" component={SignUp}/>
+          <Route path="/dashboard/forgotpassword" component={ForgotPassword}/>
+          <Route path="/dashboard/home" component={Dashboard}/>
           <Route render={ props => <Redirect to={{ pathname: '/signin', state: { from: props.location } }} /> } />
-        </Router>
+        </Switch>
     </div>
   );
 }
