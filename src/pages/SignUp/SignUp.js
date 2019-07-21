@@ -55,7 +55,7 @@ class SignUp extends Component {
             })
          }).then(res => res.json()
          ).then(json => {
-            if (json.code == "Signup successful") {
+            if (json.code === "Signup successful") {
                // console.log("Response: " + JSON.stringify(json))
                this.setState({ validForm: true })
             } else {
@@ -75,8 +75,8 @@ class SignUp extends Component {
       };
 
       // Validators
-      const minLength = (len) => (val) => (val) && (val.length >= len);
-      const validEmail = (val) => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(val);
+      // const minLength = (len) => (val) => (val) && (val.length >= len);
+      // const validEmail = (val) => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(val);
 
       // Add additional validators as needed
       if (!user.userName)                             // Username
