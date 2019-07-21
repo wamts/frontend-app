@@ -1,0 +1,14 @@
+input.has-error {
+   border-color: #db183f
+ }
+ .form-control.has-error {
+    margin-bottom: 8px;
+ }
+ .form-control.has-error:focus{
+   border-color: #db183f
+}
+ .error-msg {
+    text-align: left;
+    font-size: 10pt;
+    color: #db183f;
+ }
