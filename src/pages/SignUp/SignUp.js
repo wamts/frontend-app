@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { NavLink, Redirect } from 'react-router-dom';
 
-
 import './SignUp.scss';
+
+const SERVER_ADDRESS = 'http://178.128.233.31'
 
 class SignUp extends Component {
    constructor(props) {
@@ -41,9 +42,26 @@ class SignUp extends Component {
       let errorFree = !errors.userName && !errors.password && !errors.email && !errors.referralCode
       if (errorFree) {
          // Register user
-         
-         //
-         this.setState({ validForm: true })
+         fetch(SERVER_ADDRESS + '/frontend/signup', {
+            method: 'POST',
+            headers: {
+               'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+               code: user.referralCode,
+               password: user.password,
+               username: user.userName,
+               email: user.email,
+            })
+         }).then(res => res.json()
+         ).then(json => {
+            if (json.code == "Signup successful") {
+               // console.log("Response: " + JSON.stringify(json))
+               this.setState({ validForm: true })
+            } else {
+               console.log("Error: " + json.msg)
+            }
+         });
       }
       // Invalid fields are highlighted in red
    }
@@ -63,18 +81,18 @@ class SignUp extends Component {
       // Add additional validators as needed
       if (!user.userName)                             // Username
          errors.userName = 'Please Enter a username';
-      else if (!minLength(3)(user.userName))
-         errors.userName = 'Username must be at least 3 characters long';
+      // else if (!minLength(3)(user.userName))
+      //    errors.userName = 'Username must be at least 3 characters long';
 
       if (!user.password)                             // Password
          errors.password = 'Please Enter a password';
-      else if (!minLength(8)(user.password))
-         errors.password = 'Password must be at least 8 characters long';
+      // else if (!minLength(8)(user.password))
+      //    errors.password = 'Password must be at least 8 characters long';
 
       if (!user.email)                                // Email
          errors.email = 'Please Enter your email';
-      else if (!validEmail(user.email))
-         errors.email = 'Invalid Email Address';
+      // else if (!validEmail(user.email))
+      //    errors.email = 'Invalid Email Address';
 
       if (!user.referralCode)                         // Referral Code
          errors.referralCode = 'Please Enter your referral code';
@@ -89,6 +107,7 @@ class SignUp extends Component {
 
       const errors = this.validateForm(user)
       if (submitted && validForm) {
+         // console.log("REDIRECT")
          return <Redirect to='/signIn' />
       }
       return (
