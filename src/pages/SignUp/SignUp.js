@@ -21,7 +21,7 @@ class SignUp extends Component {
       this.handleChange = this.handleChange.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
    }
-   handleChange(event) {
+   handleChange(event) {               // Bind to text inputs to update state
       const { id, value } = event.target;
       const { user } = this.state;
       this.setState({
@@ -32,7 +32,7 @@ class SignUp extends Component {
       });
    }
 
-   handleSubmit(event) {
+   handleSubmit(event) {               // Bind to button
       event.preventDefault();
       // Redirect to Sign in page if successful, else return error message
       this.setState({ submitted: true });
@@ -62,7 +62,6 @@ class SignUp extends Component {
             }
          });
       }
-      // Invalid fields are highlighted in red
    }
 
    validateForm(user) {
@@ -74,8 +73,11 @@ class SignUp extends Component {
       };
 
       // Validators
+      //    Validates inputs in text fields
+      //    Leaving it simple since specifics weren't specified
+
       // const minLength = (len) => (val) => (val) && (val.length >= len);
-      // const validEmail = (val) => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(val);
+      const validEmail = (val) => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(val);
 
       // Add additional validators as needed
       if (!user.userName)                             // Username
@@ -90,8 +92,8 @@ class SignUp extends Component {
 
       if (!user.email)                                // Email
          errors.email = 'Please Enter your email';
-      // else if (!validEmail(user.email))
-      //    errors.email = 'Invalid Email Address';
+      else if (!validEmail(user.email))
+         errors.email = 'Invalid Email Address';
 
       if (!user.referralCode)                         // Referral Code
          errors.referralCode = 'Please Enter your referral code';
@@ -101,12 +103,11 @@ class SignUp extends Component {
 
    render() {
       const user = this.state.user
-      const submitted = this.state.submitted
-      const validForm = this.state.validForm
+      const submitted = this.state.submitted    // Only display errors ir user submits an invalid form
+      const validForm = this.state.validForm    // When all fields are valid, redirect to sign in
 
-      const errors = this.validateForm(user)
+      const errors = this.validateForm(user)    // Invalid fields are highlighted in red
       if (submitted && validForm) {
-         // console.log("REDIRECT")
          return <Redirect to='/signIn' />
       }
       return (

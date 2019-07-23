@@ -21,6 +21,7 @@ class ForgotPassword extends Component {
 
       this.setState({ submitted: true })
 
+      // API Call
       fetch(SERVER_ADDRESS + '/frontend/reset_password', {
          method: 'POST',
          headers: {
@@ -35,9 +36,10 @@ class ForgotPassword extends Component {
             // Do more stuff
             this.setState({ retMsg: json.code })
          } else {
-            // Display Error message
             // **** Expected response: json.code + ": " + json.error
             // **** Actual response:   json.msg, json.err (err is usually just {})
+            // ********** There seems to be some discrepancy in the API **********************
+            // Display Error message
             this.setState({ retMsg: json.msg })
             console.log(json.msg)
          }
@@ -49,7 +51,8 @@ class ForgotPassword extends Component {
             <form onSubmit={this.handleSubmit}>
                <div className="form-group">
                   <input type="email" className="form-control" id="email" placeholder="Email" ref='email' ></input>
-                  {this.state.submitted && this.state.retMsg ?
+                  {// Simple validation
+                     this.state.submitted && this.state.retMsg ?
                      <div className={this.state.retMsg === 'Reset failed' ? 'error-msg' : ''}>{this.state.retMsg}</div> : ''}
                </div>
                <div >

@@ -12,6 +12,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
 
+    // Check for saved session
     let username = ''
     let isAuthenticated = false
 
@@ -30,11 +31,7 @@ class App extends React.Component {
       }
     }
   }
-  componentDidUpdate() {
-    console.log("COMPONENT UPDATED")
-    console.log(sessionStorage.getItem(SESSION_STORE_NAME))
-    console.log(this.state.user.userName)
-  }
+  // Create new session using Browser 'sessionState'
   createNewSession() {
     let newSession = {
       username: this.state.user.userName,
@@ -58,6 +55,9 @@ class App extends React.Component {
     })
   }
   render() {
+    // Props to pass to components so children can update App state
+    //    In addition, 'isAuthenticated' is used to handle login and session state across components
+    //    Some additional child component state attributes could probably be declared in App state as well (maybe)
     const signInProps = {
       isAuthenticated: this.state.isAuthenticated,
       userHasAuthenticated: this.userHasAuthenticated,
@@ -83,6 +83,7 @@ class App extends React.Component {
   }
 }
 
+// Simple component to pass props through
 var AppliedRoute = ({ component: C, props: cProps, ...rest }) =>
   <Route {...rest} render={props => <C {...props} {...cProps} />} />
 

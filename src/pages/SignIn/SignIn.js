@@ -20,7 +20,8 @@ class SignIn extends Component {
       this.handleSubmit = this.handleSubmit.bind(this);
       this.handleChange = this.handleChange.bind(this);
    }
-   handleChange(event) {
+
+   handleChange(event) {                // Binds to input fields to update state
       // Remove error message when user retries
       this.setState({ submitted: false, errorMsg: '' });
       const { id, value } = event.target;
@@ -28,14 +29,16 @@ class SignIn extends Component {
          [id]: value
       });
    }
-   handleSubmit(event) {
+
+   handleSubmit(event) {                // Binds to Login button
       event.preventDefault();
 
       let username = this.state.userName
       let password = this.state.password
 
-      this.setState({ submitted: true }) 
+      this.setState({ submitted: true })
 
+      // Make API Call
       fetch(SERVER_ADDRESS + '/frontend/login', {
          method: 'POST',
          headers: {
@@ -48,10 +51,9 @@ class SignIn extends Component {
       })
          .then(res => res.json())
          .then(json => {
-            console.log(json)
             if (json.code === "Login successful") {
                this.props.setUserName(username)
-               this.props.userHasAuthenticated(true)
+               this.props.userHasAuthenticated(true)     // Update App isAuthenticated state
             } else {
                // Show error message
                this.setState({ errorMsg: json.code + ": " + json.error })
@@ -63,8 +65,10 @@ class SignIn extends Component {
    render() {
       const submitted = this.state.submitted;
       const errorMsg = this.state.errorMsg;
+
+      // Checks whether the user is authenticated for current session
+      //  Remove 'submited' if you want /signIn to redirect to dashboard if user is already logged in
       if (submitted && this.props.isAuthenticated) {
-         // console.log("REDIRECT")
          return <Redirect to='/dashboard' />
       }
       return (

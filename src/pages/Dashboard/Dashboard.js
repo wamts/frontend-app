@@ -17,6 +17,7 @@ class Dashboard extends Component {
 
       this.fetchReferralCode(this.props.username)
    }
+   // Fetch referralCode using the API
    fetchReferralCode(username) {
       fetch(SERVER_ADDRESS + '/frontend/user_data/' + username)
          .then(res => res.json())
