@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchToken } from '../../actions/signInActions';
-import { NavLink, Redirect} from 'react-router-dom';
+import { NavLink, Redirect } from 'react-router-dom';
 
 import './SignIn.scss';
 
@@ -16,14 +16,13 @@ class SignIn extends Component {
          password: '',
          submitted: false,
          errorMsg: '',
-         validCredentials: false,
       }
       this.handleSubmit = this.handleSubmit.bind(this);
       this.handleChange = this.handleChange.bind(this);
    }
    handleChange(event) {
       // Remove error message when user retries
-      this.setState({submitted: false, errorMsg: ''});
+      this.setState({ submitted: false, errorMsg: '' });
       const { id, value } = event.target;
       this.setState({
          [id]: value
@@ -35,7 +34,7 @@ class SignIn extends Component {
       let username = this.state.userName
       let password = this.state.password
 
-      this.setState({submitted: true})
+      this.setState({ submitted: true }) 
 
       fetch(SERVER_ADDRESS + '/frontend/login', {
          method: 'POST',
@@ -46,24 +45,25 @@ class SignIn extends Component {
             username: username,
             password: password
          })
-      }).then(res => res.json()
-      ).then(json => {
-         console.log(json)
-         if (json.code === "Login successful") {
-            this.setState({validCredentials: true})
-            // Redirect to dashboard
-         } else {
-            // Show error message
-            this.setState({errorMsg: json.code + ": " + json.error})
-         }
-      });
+      })
+         .then(res => res.json())
+         .then(json => {
+            console.log(json)
+            if (json.code === "Login successful") {
+               this.props.setUserName(username)
+               this.props.userHasAuthenticated(true)
+            } else {
+               // Show error message
+               this.setState({ errorMsg: json.code + ": " + json.error })
+            }
+         });
 
    }
 
    render() {
       const submitted = this.state.submitted;
       const errorMsg = this.state.errorMsg;
-      if (submitted && this.state.validCredentials) {
+      if (submitted && this.props.isAuthenticated) {
          // console.log("REDIRECT")
          return <Redirect to='/dashboard' />
       }

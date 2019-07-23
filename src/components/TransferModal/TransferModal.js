@@ -13,8 +13,8 @@ class TransferModal extends Component {
                             <input type="text" className="form-control" id="userName" placeholder="To:Username"></input>
                         </div>
                         <div className="form-group">
-                            <select className="form-control">
-                                <option value="investment" selected>Investment</option>
+                            <select className="form-control" defaultValue="investment">
+                                <option value="investment" >Investment</option>
                             </select>
                         </div>
                         <div className="form-group">

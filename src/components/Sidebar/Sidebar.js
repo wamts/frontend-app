@@ -1,73 +1,75 @@
 import React, { Component } from 'react';
 import './Sidebar.scss';
-import Sidebar, {SidebarStyles} from 'react-sidebar';
+import Sidebar, { SidebarStyles } from 'react-sidebar';
 
 class LeftSidebar extends Component {
+    constructor(props) {
+        super(props);
+    }
+    render() {
+        return (
+            <div className="sidebar-container">
+                <ul className="sidebar navbar-nav" >
+                    <div className="navigation-type">
+                        <li className="nav-item">
+                            <i className="fa fa-home"></i>
+                            <span>Dashboard</span>
+                        </li>
 
-  render(){
-    return (
-        <div className="sidebar-container">
-        <ul className="sidebar navbar-nav" >
-                <div className="navigation-type">
-                <li className="nav-item">
-                    <i className="fa fa-home"></i>
-                    <span>Dashboard</span>
-                </li>
+                        <li className="nav-item">
+                            <i className="fa fa-empire"></i>
+                            {/* <i class="fas fa-steering-wheel"></i> */}
+                            <span>Affiliates</span>
+                        </li>
+                        <li className="nav-item">
+                            <i className="fa fa-clock-o"></i>
+                            <span>Stats</span>
+                        </li>
 
-                <li className="nav-item">
-                    <i className="fa fa-empire"></i>
-                    {/* <i class="fas fa-steering-wheel"></i> */}
-                    <span>Affiliates</span>
-                </li>
-                <li className="nav-item">
-                    <i className="fa fa-clock-o"></i>
-                    <span>Stats</span>
-                </li>
+                        <li className="nav-item">
+                            <i className="fa fa-line-chart"></i>
+                            <span>Exchange</span>
+                        </li>
+                    </div>
+                    <div className="Currency-type"><li className="nav-item">
+                        <i className="fa fa-chevron-right"></i>
+                        <span>CLAM</span>
+                    </li>
+                        <li className="nav-item">
+                            <i className="fa fa-chevron-right"></i>
+                            <span>BTC</span>
+                        </li>
+                        <li className="nav-item">
+                            <i className="fa fa-chevron-right"></i>
+                            <span>CAD</span>
+                        </li>
+                        <li className="nav-item">
+                            <i className="fa fa-chevron-right"></i>
+                            <span>USD</span>
+                        </li>
+                        <li className="nav-item">
+                            <i className="fa fa-chevron-right"></i>
+                            <span>GOLD</span>
+                        </li>
+                    </div>
+                    <div className="other-containt">
+                        <li className="nav-item">
+                            <i className="fa fa-envelope-square"></i>
+                            <span>Contact</span>
+                        </li>
+                        <li className="nav-item">
+                            <i className="fa fa-sign-out"></i>
+                            <span>Logout</span>
+                        </li>
+                        <li className="nav-item">
+                            <span>{this.props.referralCode ? this.props.referralCode : "Referral Code"}</span>
+                        </li>
+                    </div>
+                </ul>
 
-                <li className="nav-item">
-                <i className="fa fa-line-chart"></i>
-                    <span>Exchange</span>
-                </li>
-                </div>
-                <div className="Currency-type"><li className="nav-item">
-                    <i className="fa fa-chevron-right"></i>
-                    <span>CLAM</span>
-                </li>
-                <li className="nav-item">
-                    <i className="fa fa-chevron-right"></i>
-                    <span>BTC</span>
-                </li>
-                <li className="nav-item">
-                    <i className="fa fa-chevron-right"></i>
-                    <span>CAD</span>
-                </li>
-                <li className="nav-item">
-                    <i className="fa fa-chevron-right"></i>
-                    <span>USD</span>
-                </li>
-                <li className="nav-item">
-                    <i className="fa fa-chevron-right"></i>
-                    <span>GOLD</span>
-                </li>
-                </div>
-                <div className="other-containt">
-                <li className="nav-item">
-                    <i className="fa fa-envelope-square"></i>
-                    <span>Contact</span>
-                </li>
-                <li className="nav-item">
-                    <i className="fa fa-sign-out"></i>
-                    <span>Logout</span>
-                </li>
-                <li className="nav-item">
-                    <span>Referral Code</span>
-                </li>
-                </div>
-            </ul>
-
-    </div>
-    );
-  }
+            </div>
+        );
+    }
 }
 
 // class LeftSidebar extends Component {
